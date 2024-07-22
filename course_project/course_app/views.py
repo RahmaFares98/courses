@@ -3,29 +3,43 @@ from django.http import JsonResponse
 from django.contrib import messages
 from .models import*
 from . import models
-
+from django.conf import settings
 # Create your views here.
+
+
+def error_404(request, exception):
+    return render(request, '404.html', status=404)
+
+def error_500(request):
+    return render(request, '505.html', status=500)
+
 def index(request):
     context={'courses':getallcourse() ,
             "descriptions" :getalldescription()}
     
     return render (request,'index.html',context  )
 
-def course_add (request):
-    if request.method=='POST':
-        errors = Course.objects.basic_validator(request.POST)
-    # check if the errors dictionary has anything in it
-    if len(errors) > 0:
-    # if the errors dictionary contains anything, loop through each key-value pair and make a flash message
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/')
-    else:
-    # redirect the user back to the form to fix the errors
-        name=request.POST['name']
-        description=request.POST['description']
-        desc=create_description(description)
-        course=addcourse(name,desc)
+
+
+def course_add(request):
+    if request.method == 'POST':
+        try:
+            errors = Course.objects.basic_validator(request.POST)
+            
+            if len(errors)> 0:
+                for key, value in errors.items():
+                    messages.error(request, value)
+            else:
+                name = request.POST.get('name', '')
+                description = request.POST.get('description', '')
+                desc = create_description(description)
+                course = addcourse(name, desc)
+                messages.success(request, "Course successfully added.")
+        
+        except Exception as e:
+            messages.error(request, f"An error occurred: {str(e)}")
+            # Log the exception for further investigation if necessary
+    
     return redirect('/')
 
 

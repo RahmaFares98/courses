@@ -9,8 +9,8 @@ class CourseManager(models.Manager):
         # add keys and values to errors dictionary for each invalid field
         if len(postData['name']) < 5:
             errors["name"] = "Course Name should be at least 10 characters"
-        if len(postData['desc']) < 15:
-            errors["desc"] = "Description  should be at least 15 characters"
+        if len(postData['description']) < 15:
+            errors["description"] = "Description  should be at least 15 characters"
         return errors
 
 #class description

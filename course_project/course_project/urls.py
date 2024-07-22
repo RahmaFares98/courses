@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from course_app import views  # Import views if needed for error handlers
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('course_app.urls')),
+        path('', include('course_app.urls')),  # Include app-specific URLs correctly
+
 ]
+

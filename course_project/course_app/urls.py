@@ -1,6 +1,10 @@
 from django.urls import path
 from . import views
 
+handler404 = 'course_app.views.error_404'
+handler500 = 'course_app.views.error_500'
+
+
 urlpatterns = [
     path ('' , views.index , name ='index'),
     path ('course_add' , views.course_add , name ='course_add'),
