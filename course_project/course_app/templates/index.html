@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Add a new Course</h1>
+
+        <form method="post" action="{% url 'course_add' %}">
+            {% csrf_token %}
+            <label for="name">Course Name:</label>
+            <input type="text" id="name" name="name" required><br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea><br>
+            <button type="submit" class="btn btn-primary">Add Course</button>
+        </form>
+
+        <h2>Courses:</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date Added</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.Description.discript}}</td>
+                    <td>{{ course.created_at| date:"F j, Y g:i A"}}</td>
+                    <td>
+                        <a href="{% url 'confirm_delete' course.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        <!-- Add edit or details link here if implementing advanced features -->
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
