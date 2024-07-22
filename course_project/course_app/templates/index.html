@@ -35,10 +35,12 @@
                 {% for course in courses %}
                 <tr>
                     <td>{{ course.name }}</td>
-                    <td>{{ course.Description.discript}}</td>
+                    <td>{{ course.Description.descript}}</td>
                     <td>{{ course.created_at| date:"F j, Y g:i A"}}</td>
                     <td>
                         <a href="{% url 'confirm_delete' course.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="{% url 'comment' course.id %}" class="btn btn-danger btn-sm">Comment</a>
+
                         <!-- Add edit or details link here if implementing advanced features -->
                     </td>
                 </tr>
@@ -46,6 +48,12 @@
             </tbody>
         </table>
     </div>
+    {% if messages %}
+    <ul class="messages list-group ">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-danger m-1" {% endif %}> {{
+            message }}</li>
+        {% endfor %}
 </body>
 
 </html>
