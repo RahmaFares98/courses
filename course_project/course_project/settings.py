@@ -28,9 +28,10 @@ SECRET_KEY = 'th3+t#ve11=2jwec547hdl5s10&5&^d-xq2#5ivh^qe!1wcvtj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['{{yourEC2.public.ip}}']	# keep the quotes!
 
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 # Application definition
 
 INSTALLED_APPS = [
